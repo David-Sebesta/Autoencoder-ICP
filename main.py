@@ -54,16 +54,16 @@ def load_28x28_digits():
         Image Shape: Shape of image (28, 28)
     """
 
-    training_samples = idx2numpy.convert_from_file('samples/train-images.idx3-ubyte')   # Load mnist training samples
-    training_y = idx2numpy.convert_from_file('samples/train-labels.idx1-ubyte')         # Load mnist training labels
+    training_samples = idx2numpy.convert_from_file('samples/mnist_28x28_digits/train-images.idx3-ubyte')   # Load mnist training samples
+    training_y = idx2numpy.convert_from_file('samples/mnist_28x28_digits/train-labels.idx1-ubyte')         # Load mnist training labels
 
     image_shape = training_samples[0].shape  # Finds the shape of the images
 
     training_samples = training_samples.reshape(len(training_samples), training_samples[0].size)  # Reshapes to NxD
     training_samples = training_samples[:] / 255  # Normalize between 0 and 1
 
-    test_samples = idx2numpy.convert_from_file('samples/t10k-images.idx3-ubyte')        # Load mnist testing samples
-    test_y = idx2numpy.convert_from_file('samples/t10k-labels.idx1-ubyte')              # Load mnist testing labels
+    test_samples = idx2numpy.convert_from_file('samples/mnist_28x28_digits/t10k-images.idx3-ubyte')        # Load mnist testing samples
+    test_y = idx2numpy.convert_from_file('samples/mnist_28x28_digits/t10k-labels.idx1-ubyte')              # Load mnist testing labels
 
     test_samples = test_samples.reshape(len(test_samples), test_samples[0].size)                # Reshapes to MxD
     test_samples = test_samples[:] / 255    # Normalizes between 0 and 1
@@ -232,7 +232,7 @@ def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False, dow
 
 if __name__ == "__main__":
 
-    train_8x8_digits()
+    train_28x28_digits()
 
 
 
