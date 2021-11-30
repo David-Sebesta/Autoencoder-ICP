@@ -8,6 +8,8 @@ Fall 2021
 </p>
 
 
+
+
 ## Purpose
 <purpose>
 The goal of this project was to create a simple autoencoder using primary component analysis (PCA).
@@ -22,18 +24,18 @@ This autoencoder also allows for the data to be corrupted by noise and reconstru
 An basic autoencoder consists of two parts: an encoder and decoder.
 The encoder transforms the data to a smaller dimension based on the most important components.
 Then the decoder transforms it back to the original dimensions.
-The encoding function, <img src="https://render.githubusercontent.com/render/math?math=f%20%3A%20%5Cmathbb%7BR%7D%5E%7BD%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7BH%7D">,
+The encoding function <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7Bf%3A%5Cmathbb%7BR%7D%5E%7BD%7D%5Cto%5Cmathbb%7BR%7D%5E%7BH%7D%7D">,
 maps D-dimensions to H-dimensions.
-The decoding function, <img src="https://render.githubusercontent.com/render/math?math=g%20%3A%20%5Cmathbb%7BR%7D%5E%7BH%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7BD%7D">,
+The decoding function <img src="https://render.githubusercontent.com/render/math?math=g%20%3A%20%5Cmathbb%7BR%7D%5E%7BH%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7BD%7D">,
 maps H-dimensions to D-dimensions.
-The reconstructed samples, <img src="https://render.githubusercontent.com/render/math?math=%5Chat%7Bx%7D%20%5Ctriangleq%20g(f(x))%20%5Capprox%20x">,
+The reconstructed samples <img src="https://render.githubusercontent.com/render/math?math=%5Chat%7Bx%7D%20%5Ctriangleq%20g(f(x))%20%5Capprox%20x">,
 after being encoded then decoded, are approximately equal to the original samples.
 </technique>
 
 ### Encoder
 <encoder>
 The encoder first uses PCA to find the transformation. With training samples <img src="https://render.githubusercontent.com/render/math?math=X%20%5Cin%20%5Cmathbb%7BR%7D%5E%7BRxD%7D">
-and total variance explained <img src="https://render.githubusercontent.com/render/math?math=0%20%5Cle%20p%20%5Cle%201">, the
+and total variance explained <img src="https://render.githubusercontent.com/render/math?math=0%20%5Cle%20p%20%5Cle%201">. The
 PCA training is as follows.
 
 ##### PCA Training
