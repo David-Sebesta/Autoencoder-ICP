@@ -15,10 +15,6 @@ from PIL import Image
 from pathlib import Path
 
 
-# TODO:
-#   Seperate the samples from 8x8 into training and testing
-
-
 def load_8x8_digits():
     """
     Uses the mnist 8x8 digits
@@ -113,7 +109,7 @@ def add_noise(samples, strength=0.5):
     return samples[:] + noise * strength
 
 
-def train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False):
+def train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False):
     """
     Built in autoencoder training and image showing. Uses mnist 8x8 digits. Change noise strength to a value between 0
     and 1 to add noise to the test samples.
@@ -148,11 +144,11 @@ def train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False
         plt.imshow(auto.decoded_data[i].reshape(image_shape), cmap='gray')
         plt.show()
 
-    if plot_cev:
-        auto.plot_cumulative_explained_variance()
+    if plot_cve:
+        auto.plot_cve()
 
 
-def train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False):
+def train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False):
     """
     Built in autoencoder training and image showing. Uses mnist 28x28 digits. Change noise strength to a value between 0
     and 1 to add noise to the test samples.
@@ -185,11 +181,11 @@ def train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=Fal
         plt.imshow(auto.decoded_data[i].reshape(image_shape), cmap='gray')
         plt.show()
 
-    if plot_cev:
-        auto.plot_cumulative_explained_variance()
+    if plot_cve:
+        auto.plot_cve()
 
 
-def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False, downsample=4):
+def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False, downsample=4):
     """
     Built in autoencoder and image showing. PCA trains an autoencoder using the cropped and downscaled yale faces.
     Change noise strength to a value between 0 and 1 to add noise to the test samples.
@@ -199,7 +195,7 @@ def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False, dow
     :param noise_strength: Strength of the noise added to the test signal. Use a value between 0 and 1.
     :param n_images: Amount of images to be shown
     :param plot_cev: If true, plots the Cumulative Explained Variance vs Number of principle components
-    :param downsample: amount the images will be downsampled (needs to be at least 3, not enough ram)
+    :param downsample: Amount the images will be downsampled (needs to be at least 3, not enough ram)
     """
 
     samples, image_shape = load_cropped_faces(downsample=downsample)
@@ -208,6 +204,8 @@ def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False, dow
     auto = autoencoder.autoencoder()
 
     auto.pca_train(samples=samples, p=p, h=h)
+
+    print(samples[0].size)
 
     if noise_strength != 0:
         samples = add_noise(samples, strength=noise_strength)
@@ -226,13 +224,13 @@ def train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cev=False, dow
         plt.imshow(auto.decoded_data[i].reshape(image_shape), cmap='gray')
         plt.show()
 
-    if plot_cev:
-        auto.plot_cumulative_explained_variance()
+    if plot_cve:
+        auto.plot_cve()
 
 
 if __name__ == "__main__":
 
-    train_28x28_digits()
+    train_8x8_digits(p=0.85, plot_cve=True)
 
 
 

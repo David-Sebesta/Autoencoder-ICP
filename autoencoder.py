@@ -164,15 +164,15 @@ class autoencoder:
         elif self.type == "Gram":
             self.decoded_data = self.principle_components @ self.transformed_data.T
 
-    def plot_cumulative_explained_variance(self):
+    def plot_cve(self):
         """
-        Plots the cumulative explained variance vs the Number of components
+        Plots the cumulative variance explained vs the Number of components
         """
         plt.stem(np.cumsum(self.e_val / np.sum(self.e_val)))
         plt.axis('tight')
         plt.grid()
         plt.xlabel('Number of Components')
-        plt.ylabel('Cumulative Explained Variance')
+        plt.ylabel('Cumulative Variance Explained')
         plt.show()
 
 
