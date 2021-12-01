@@ -96,6 +96,7 @@ For the Yale Faces, they are normally 200x200, but they have to be downsampled u
 
 ### 8x8 Bit Digits
 <eight>
+The 8x8 Bit Digits only has 8 total samples that are used for training and testing.
 With the total variance explained, p, equal to 0.8. The total number of principle components is 13.
 
 ![plot](results/8x8/five_p_0.8.png?raw=true )
@@ -155,8 +156,9 @@ always contain the majority of the total variance.
 
 ### 28x28 Bit Digits
 <twentyeight>
-Lets take a look at digits with a lot more dimensions. 
+Lets take a look at digits with a lot more dimensions. This data set has 60000 samples for training and 10000 samples for testing.
 
+<br />
 With the total variance explained, p, equal to 0.8. The total number of principle components is 44.
 
 ![plot](results/28x28/six_p_0.8.png?raw=true )
@@ -212,7 +214,7 @@ it still does a good job.
 
 ### Yale Faces
 <faces>
-
+There are 165 samples that I cropped down to 200x200 pixels.
 The faces have been downsampled by 4, so they are 50x50 with D = 2500.
 Since all the faces are not centered, the PCA becomes slightly off due to the position of the faces, but 
 it still does a good job.
