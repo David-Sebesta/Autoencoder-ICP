@@ -25,7 +25,7 @@ An basic autoencoder consists of two parts: an encoder and decoder.
 The encoder transforms the data to a smaller dimension based on the most important components.
 Then the decoder transforms it back to the original dimensions.
 The encoding function maps D-dimensions to H-dimensions.
-<img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7Bf%3A%5Cmathbb%7BR%7D%5E%7BD%7D%5Cto%5Cmathbb%7BR%7D%5E%7BH%7D%7D">,
+<img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7Bf%3A%5Cmathbb%7BR%7D%5E%7BD%7D%5Cto%5Cmathbb%7BR%7D%5E%7BH%7D%7D">
 
 The decoding function maps H-dimensions to D-dimensions.
 <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7Bg%20%3A%20%5Cmathbb%7BR%7D%5E%7BH%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7BD%7D%7D">
@@ -143,9 +143,10 @@ With the total variance explained, p, equal to 0.95.
 ![plot](results/8x8/noise_one_p_0.95.png?raw=true )
 
 
-The Cumulative Total Variance Explained vs the Number of Components.
+This graph displays the Cumulative Total Variance Explained vs the Number of Components.
 See that 90% is at N=21.
-Since the other data has a lot more dimensions, the graph gets way to busy to read.
+Since the other data has a lot more dimensions, the graph gets way to busy to read, but the first couple components
+contain the majority of the total variance.
 
 ![plot](results/8x8/cve.png?raw=true "Cumulative Variance Explained vs Number of Principle Components")
 
@@ -153,24 +154,43 @@ Since the other data has a lot more dimensions, the graph gets way to busy to re
 
 ### 28x28 Bit Digits
 <twentyeight>
+Lets take a look at digits with a lot more dimensions. 
 
 With the total variance explained, p, equal to 0.8. The total number of principle components is 44.
 
-p = 0.85, H = 59
+![plot](results/28x28/six_p_0.8.png?raw=true )
 
-p = 0.9, H = 87
+With the total variance explained, p, equal to 0.85. The total number of principle components is 59.
 
-p = 0.95, H = 154
+![plot](results/28x28/eight_p_0.85.png?raw=true )
 
-p = 0.99, H = 331
+With the total variance explained, p, equal to 0.9. The total number of principle components is 87.
 
-Noise
+![plot](results/28x28/four_p_0.9.png?raw=true )
 
-p = 0.8
+With the total variance explained, p, equal to 0.95. The total number of principle components is 154.
 
-p = 0.9
+![plot](results/28x28/four_p_0.95.png?raw=true )
 
-p = 0.95
+![plot](results/28x28/seven_p_0.95.png?raw=true )
+
+With the total variance explained, p, equal to 0.99. The total number of principle components is 331.
+
+![plot](results/28x28/zero_p_0.99.png?raw=true )
+
+![plot](results/28x28/four_p_0.99.png?raw=true )
+
+####Noise
+
+With the total variance explained, p, equal to 0.8.
+
+![plot](results/28x28/noise_zero_p_0.8.png?raw=true )
+
+With the total variance explained, p, equal to 0.9.
+
+![plot](results/28x28/noise_one_p_0.9.png?raw=true )
+
+![plot](results/28x28/noise_seven_p_0.9.png?raw=true )
 
 </twentyeight>
 
@@ -180,16 +200,84 @@ p = 0.95
 The faces have been downsampled by 4, so they are 50x50 with D = 2500.
 Since all the faces are not centered, the PCA gets slightly off due to the position of the faces.
 
-p = 0.8, H = 11
+With the total variance explained, p, equal to 0.8. The total number of principle components is 11.
 
-p = 0.85, H = 17
+![plot](results/faces/p_0.8_1.png?raw=true)
 
-p = 0.9, H = 26
 
-p = 0.95, H = 50
+With the total variance explained, p, equal to 0.85. The total number of principle components is 17.
 
-p = 0.99, H = 106
+![plot](results/faces/p_0.85_1.png?raw=true)
 
+![plot](results/faces/p_0.85_2.png?raw=true)
+
+With the total variance explained, p, equal to 0.9. The total number of principle components is 26.
+
+![plot](results/faces/p_0.9_1.png?raw=true)
+
+![plot](results/faces/p_0.9_2.png?raw=true)
+
+![plot](results/faces/p_0.9_3.png?raw=true)
+
+With the total variance explained, p, equal to 0.95. The total number of principle components is 50.
+
+![plot](results/faces/p_0.95_1.png?raw=true)
+
+![plot](results/faces/p_0.95_2.png?raw=true)
+
+![plot](results/faces/p_0.95_3.png?raw=true)
+
+
+With the total variance explained, p, equal to 0.99. The total number of principle components is 106.
+
+![plot](results/faces/p_0.99_1.png?raw=true)
+
+![plot](results/faces/p_0.99_2.png?raw=true)
+
+![plot](results/faces/p_0.99_3.png?raw=true)
+
+![plot](results/faces/p_0.99_4.png?raw=true)
 
 
 </faces>
+
+##How to use
+<p>
+
+The autoencoder is defined as a class, so an autoencoder object can be created, trained, and used.
+```python
+my_auto = autoencoder.autoencoder()  # Create an autoencoder
+
+my_auto.pca_train(samples=my_samples, p=my_total_variance_explained, h=None)  # Train the PCA model.
+#  A specific value of h can be given if a certain number of principle components want to be used.
+
+my_auto.encode(test_samples=my_test_samples)  # encode the test samples
+
+my_auto.decode()  # decode the transformed samples
+```
+
+The decoded data is a variable of the autoencoder object and can be accessed.
+```python
+my_auto.decoded_data  # decoded data is an NxD array
+
+plt.imshow(my_auto.decoded_data[0].reshape(image_shape))  # Reshape the dimensions back to the image shape's
+```
+
+There are three functions built in to train and display n images for each data set.
+```python
+
+#  Train the 8x8 digits
+my_auto.train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
+
+
+#  Train the 28x28 digits
+my_auto.train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
+
+
+#  Train the Yale Faces
+my_auto.train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False, downsample=4)
+
+
+```
+
+</p>
