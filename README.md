@@ -207,7 +207,8 @@ it still does a good job.
 <faces>
 
 The faces have been downsampled by 4, so they are 50x50 with D = 2500.
-Since all the faces are not centered, the PCA gets slightly off due to the position of the faces.
+Since all the faces are not centered, the PCA becomes slightly off due to the position of the faces, but 
+it still does a good job.
 
 With the total variance explained, p, equal to 0.8. The total number of principle components is 11.
 
@@ -259,6 +260,8 @@ Using only 106 out of the 2500 principle components, the faces look very similar
 
 The autoencoder is defined as a class, so an autoencoder object can be created, trained, and used.
 ```python
+#import autoencoder
+
 my_auto = autoencoder.autoencoder()  # Create an autoencoder
 
 my_auto.pca_train(samples=my_samples, p=my_total_variance_explained, h=None)  # Train the PCA model.
