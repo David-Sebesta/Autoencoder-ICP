@@ -7,9 +7,6 @@ ECE 5258 Pattern Recognition
 Fall 2021
 </p>
 
-
-
-
 ## Purpose
 <purpose>
 The goal of this project was to create a simple autoencoder using primary component analysis (PCA).
@@ -17,7 +14,6 @@ Then using the autoencoder, three sets of data would be encoded and decoded.
 The data consists of the mnist 8x8 digits, mnist 28x28 digits, and a cropped version of the Yale Faces.
 This autoencoder also allows for the data to be corrupted by noise and reconstructed.
 </purpose>
-
 
 ## Technique
 <technique>
@@ -32,12 +28,12 @@ The decoding function maps H-dimensions to D-dimensions.
 
 The reconstructed samples after being encoded then decoded, are approximately equal to the original samples.
 <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7B%5Chat%7Bx%7D%20%5Ctriangleq%20g(f(x))%20%5Capprox%20x%7D">
-
 </technique>
 
 ### Encoder
 <encoder>
-The encoder first uses PCA to find the transformation. With training samples <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7BX%20%5Cin%20%5Cmathbb%7BR%7D%5E%7BRxD%7D%7D">
+The encoder first uses PCA based on the sample covariance matrix to find the transformation.
+With training samples <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7BX%20%5Cin%20%5Cmathbb%7BR%7D%5E%7BRxD%7D%7D">
 and total variance explained <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7B0%20%5Cle%20p%20%5Cle%201%7D">
 
 #### PCA Training
@@ -75,29 +71,25 @@ Transform the centered data using the first H primary components.
 
 </encoder>
 
-
-
 ### Decoder
 <decoder>
 Decoding is very similar to encoding. It uses the same PCA-transformation, but in the other direction mapping H-dimensions back to D-dimensions.
 
-The decoded test samples are caculated using the same H principle components, and then uncentering samples with the training samples mean.
+The decoded test samples are calculated using the same H principle components, and then uncentering samples with the training samples mean.
 <br />
 <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7B%5Chat%7BX%7D_%7Bt%7D%3D%5Ctilde%7BY%7D_%7Bt%7D%5Cnu%5E%7BT%7D_%7BH%7D%20%2B%5Chat%7B%5Cmu%7D_%7Bx%7D%7D">
 
 </decoder>
 
 ## Results
-
 <results>
-
-For the data used in this project, N is the number of samples and D is the number of pixels.
+For the data used in this project, N is the number of samples and D is the number of pixels in that sample.
+Each sample is a D-length vector.
 Each dimensions value is equal to the pixels strength from 0 to 255.
 That value is then normalized to be between 0 and 1.
 For the 8x8 Bit Digits, D = 64.
 For the 28x28 Bit Digits, D = 784.
 For the Yale Faces, they are normally 200x200, but they have to be downsampled unless you have a very powerful computer.
-
 </results>
 
 ### 8x8 Bit Digits
@@ -137,8 +129,7 @@ With the total variance explained, p, equal to 0.99. The total number of princip
 ![plot](results/8x8/two_p_0.99.png?raw=true )
 
 #### Noise
-
-Now lets add some noise the images.
+Now lets add some uniform noise to the images.
 
 With the total variance explained, p, equal to 0.9.
 
@@ -149,15 +140,15 @@ With the total variance explained, p, equal to 0.95.
 
 ![plot](results/8x8/noise_one_p_0.95.png?raw=true )
 
+The images are somewhat denoised, but lets take it up a notch when we get to the 28x28 digits.
 
-<br />
+#### Cumulative Total Variance Explained
 This graph displays the Cumulative Total Variance Explained vs the Number of Components.
 See that 90% is at N=21.
 Since the other data has a lot more dimensions, the graph gets way to busy to read, but the first couple components
 always contain the majority of the total variance.
 
 ![plot](results/8x8/cve.png?raw=true "Cumulative Variance Explained vs Number of Principle Components")
-
 </eight>
 
 ### 28x28 Bit Digits
@@ -292,7 +283,6 @@ There are three functions built in to train and display n images for each data s
 ```python
 #  Train the 8x8 digits
 my_auto.train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
-
 
 #  Train the 28x28 digits
 my_auto.train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
