@@ -108,24 +108,28 @@ With the total variance explained, p, equal to 0.8. The total number of principl
 
 ![plot](results/8x8/three_p_0.8.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.85. The total number of principle components is 17.
 
 ![plot](results/8x8/one_p_0.85.png?raw=true )
 
 ![plot](results/8x8/three_p_0.85.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.9. The total number of principle components is 21.
 
 ![plot](results/8x8/two_p_0.9.png?raw=true )
 
 ![plot](results/8x8/three_p_0.9.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.95. The total number of principle components is 29.
 
 ![plot](results/8x8/six_p_0.95.png?raw=true )
 
 ![plot](results/8x8/one_p_0.95.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.99. The total number of principle components is 41.
 
 ![plot](results/8x8/five_p_0.99.png?raw=true )
@@ -134,19 +138,23 @@ With the total variance explained, p, equal to 0.99. The total number of princip
 
 #### Noise
 
+Now lets add some noise the images.
+
 With the total variance explained, p, equal to 0.9.
 
 ![plot](results/8x8/noise_zero_p_0.9.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.95.
 
 ![plot](results/8x8/noise_one_p_0.95.png?raw=true )
 
 
+<br />
 This graph displays the Cumulative Total Variance Explained vs the Number of Components.
 See that 90% is at N=21.
 Since the other data has a lot more dimensions, the graph gets way to busy to read, but the first couple components
-contain the majority of the total variance.
+always contain the majority of the total variance.
 
 ![plot](results/8x8/cve.png?raw=true "Cumulative Variance Explained vs Number of Principle Components")
 
@@ -160,37 +168,47 @@ With the total variance explained, p, equal to 0.8. The total number of principl
 
 ![plot](results/28x28/six_p_0.8.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.85. The total number of principle components is 59.
 
 ![plot](results/28x28/eight_p_0.85.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.9. The total number of principle components is 87.
 
 ![plot](results/28x28/four_p_0.9.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.95. The total number of principle components is 154.
 
 ![plot](results/28x28/four_p_0.95.png?raw=true )
 
 ![plot](results/28x28/seven_p_0.95.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.99. The total number of principle components is 331.
 
 ![plot](results/28x28/zero_p_0.99.png?raw=true )
 
 ![plot](results/28x28/four_p_0.99.png?raw=true )
 
-####Noise
+#### Noise
+
+Again, lets add some noise and see what happens.
 
 With the total variance explained, p, equal to 0.8.
 
 ![plot](results/28x28/noise_zero_p_0.8.png?raw=true )
 
+<br />
 With the total variance explained, p, equal to 0.9.
 
 ![plot](results/28x28/noise_one_p_0.9.png?raw=true )
 
 ![plot](results/28x28/noise_seven_p_0.9.png?raw=true )
+
+The autoencoder seems to be able to denoise the images. Although not perfect, since this is a simple linear enocoder,
+it still does a good job.
 
 </twentyeight>
 
@@ -204,13 +222,14 @@ With the total variance explained, p, equal to 0.8. The total number of principl
 
 ![plot](results/faces/p_0.8_1.png?raw=true)
 
-
+<br />
 With the total variance explained, p, equal to 0.85. The total number of principle components is 17.
 
 ![plot](results/faces/p_0.85_1.png?raw=true)
 
 ![plot](results/faces/p_0.85_2.png?raw=true)
 
+<br />
 With the total variance explained, p, equal to 0.9. The total number of principle components is 26.
 
 ![plot](results/faces/p_0.9_1.png?raw=true)
@@ -219,6 +238,7 @@ With the total variance explained, p, equal to 0.9. The total number of principl
 
 ![plot](results/faces/p_0.9_3.png?raw=true)
 
+<br />
 With the total variance explained, p, equal to 0.95. The total number of principle components is 50.
 
 ![plot](results/faces/p_0.95_1.png?raw=true)
@@ -228,7 +248,9 @@ With the total variance explained, p, equal to 0.95. The total number of princip
 ![plot](results/faces/p_0.95_3.png?raw=true)
 
 
+<br />
 With the total variance explained, p, equal to 0.99. The total number of principle components is 106.
+Using only 106 out of the 2500 principle components, the faces look very similar to the original sample.
 
 ![plot](results/faces/p_0.99_1.png?raw=true)
 
@@ -241,7 +263,7 @@ With the total variance explained, p, equal to 0.99. The total number of princip
 
 </faces>
 
-##How to use
+## How to use
 <p>
 
 The autoencoder is defined as a class, so an autoencoder object can be created, trained, and used.
@@ -256,16 +278,18 @@ my_auto.encode(test_samples=my_test_samples)  # encode the test samples
 my_auto.decode()  # decode the transformed samples
 ```
 
+<br />
 The decoded data is a variable of the autoencoder object and can be accessed.
+
 ```python
 my_auto.decoded_data  # decoded data is an NxD array
 
 plt.imshow(my_auto.decoded_data[0].reshape(image_shape))  # Reshape the dimensions back to the image shape's
-```
-
+```  
+<br />
 There are three functions built in to train and display n images for each data set.
-```python
 
+```python
 #  Train the 8x8 digits
 my_auto.train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
 
@@ -273,11 +297,8 @@ my_auto.train_8x8_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=F
 #  Train the 28x28 digits
 my_auto.train_28x28_digits(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False)
 
-
 #  Train the Yale Faces
 my_auto.train_faces(p=0.9, h=None, noise_strength=0, n_images=2, plot_cve=False, downsample=4)
-
-
 ```
 
 </p>
