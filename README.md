@@ -35,6 +35,8 @@ The reconstructed samples after being encoded then decoded, are approximately eq
 The encoder first uses PCA based on the sample covariance matrix to find the transformation.
 With training samples <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7BX%20%5Cin%20%5Cmathbb%7BR%7D%5E%7BRxD%7D%7D">
 and total variance explained <img src="https://render.githubusercontent.com/render/math?math=%5Cbbox%5Bwhite%5D%7B0%20%5Cle%20p%20%5Cle%201%7D">
+The total variance explained is a hyperparameter, meaning it can not be found during training, since its optimal value 
+would be found to be 1 causing no dimensionality reduction.
 
 #### PCA Training
 First the sample mean is calculated.
@@ -197,6 +199,11 @@ With the total variance explained, p, equal to 0.9.
 ![plot](results/28x28/noise_one_p_0.9.png?raw=true )
 
 ![plot](results/28x28/noise_seven_p_0.9.png?raw=true )
+
+<br />
+With the total variance explained, p, equal to 0.95.
+
+![plot](results/28x28/noise_seven_p_0.95.png?raw=true )
 
 The autoencoder seems to be able to denoise the images. Although not perfect, since this is a simple linear enocoder,
 it still does a good job.
